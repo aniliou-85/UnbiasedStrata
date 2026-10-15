@@ -69,7 +69,9 @@ python3 tools/muse_compare_logits.py reference.f32 native.f32
 The reference uses llama.cpp's graph, FP32 KV, and flash attention disabled to
 match the initial native attention representation. The comparison rejects
 different input-token sequences, non-finite values, and inconsistent shapes.
-Its default gates are at least 95% greedy top-1 agreement and maximum per-token
+These checks compare final output logits, not intermediate layer activations,
+and do not establish bitwise equality. Layer-by-layer activation parity remains
+unverified. Its default gates are at least 95% greedy top-1 agreement and maximum per-token
 KL divergence of 0.01. It also reports maximum absolute and RMS logit error.
 `--generate N` is a smoke test; do not compare independently generated sequences
 as teacher-forced logits.
